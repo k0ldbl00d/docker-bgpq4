@@ -1,0 +1,9 @@
+FROM alpine:latest as build
+WORKDIR /build
+RUN apk add gcc g++ make git autoconf automake libtool bison
+RUN git clone https://github.com/bgp/bgpq4
+RUN cd bgpq4 && ./bootstrap && ./configure && make
+
+FROM alpine:latest
+COPY --from=build /build/bgpq4/bgpq4 /bin/bgpq4
+CMD [ "/bin/bgpq4" ]
