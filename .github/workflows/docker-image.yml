@@ -17,8 +17,8 @@ jobs:
     - name: Login into Docker Hub
       uses: docker/login-action@v3
       with:
-        username: ${{ DOCKER_HUB_USERNAME }}
-        password: ${{ DOCKER_HUB_SECRET }}
+        username: ${{ secrets.DOCKER_HUB_USERNAME }}
+        password: ${{ secrets.DOCKER_HUB_SECRET }}
     - name: Build the Docker image (Ubuntu Jammy)
       run: docker build . --file Dockerfile --tag tcsmr/bgpq4:latest
     - name: Push image
