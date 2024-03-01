@@ -14,7 +14,16 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+    - name: Login into Docker Hub
+      uses: docker/login-action@v3
+      with:
+        username: ${{ DOCKER_HUB_USERNAME }}
+        password: ${{ DOCKER_HUB_SECRET }}
     - name: Build the Docker image (Ubuntu Jammy)
       run: docker build . --file Dockerfile --tag tcsmr/bgpq4:latest
+    - name: Push image
+      run: docker push tcsmr/bgpq4:latest
     - name: Build the Docker image (Alpine)
       run: docker build . --file Dockerfile.alpine --tag tcsmr/bgpq4:alpine
+    - name: Push image (alpine)
+      run: docker push tcsmr/bgpq4:alpine
